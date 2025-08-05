@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  photo: MyString
+  address: MyString
+  nid_number: MyString
+  nid_document: MyString
+  phone_number: MyString
+  borrower: one
+
+two:
+  name: MyString
+  photo: MyString
+  address: MyString
+  nid_number: MyString
+  nid_document: MyString
+  phone_number: MyString
+  borrower: two
