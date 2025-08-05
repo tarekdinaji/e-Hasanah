@@ -10,9 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_155920) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_05_161026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "borrowers", force: :cascade do |t|
+    t.string "name"
+    t.string "photo"
+    t.string "address"
+    t.string "phone"
+    t.string "nid_number"
+    t.string "nid_document"
+    t.string "father_name"
+    t.string "father_nid_number"
+    t.string "father_nid_document"
+    t.string "mother_name"
+    t.string "mother_nid_number"
+    t.string "mother_nid_document"
+    t.string "spouse_name"
+    t.string "spouse_phone"
+    t.string "spouse_nid_number"
+    t.string "spouse_nid_document"
+    t.bigint "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_borrowers_on_manager_id"
+  end
 
   create_table "loans", force: :cascade do |t|
     t.decimal "amount"
@@ -29,6 +52,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_155920) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "loan_status"
+    t.bigint "borrower_id"
+    t.index ["borrower_id"], name: "index_loans_on_borrower_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,4 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_155920) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "borrowers", "users", column: "manager_id"
+  add_foreign_key "loans", "borrowers"
 end
