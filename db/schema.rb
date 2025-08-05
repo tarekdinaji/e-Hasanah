@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_162602) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_05_200305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_162602) do
     t.index ["borrower_id"], name: "index_guarantors_on_borrower_id"
   end
 
+  create_table "installments", force: :cascade do |t|
+    t.bigint "loan_id", null: false
+    t.decimal "amount"
+    t.string "status", default: "0"
+    t.integer "collected_by_id"
+    t.datetime "collected_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loan_id"], name: "index_installments_on_loan_id"
+  end
+
   create_table "loans", force: :cascade do |t|
     t.decimal "amount"
     t.integer "installment_number"
@@ -87,6 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_162602) do
 
   add_foreign_key "borrowers", "users", column: "manager_id"
   add_foreign_key "guarantors", "borrowers"
+  add_foreign_key "installments", "loans"
   add_foreign_key "loans", "borrowers"
   add_foreign_key "loans", "guarantors"
 end

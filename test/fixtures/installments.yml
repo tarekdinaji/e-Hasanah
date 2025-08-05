@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  loan: one
+  amount: 9.99
+  status: MyString
+  collected_by: 1
+  collected_at: 2025-08-05 22:39:00
+
+two:
+  loan: two
+  amount: 9.99
+  status: MyString
+  collected_by: 1
+  collected_at: 2025-08-05 22:39:00
