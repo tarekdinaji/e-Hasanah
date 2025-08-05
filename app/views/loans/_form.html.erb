@@ -1,0 +1,93 @@
+<%= form_with model: loan, local: true do |form| %>
+    <% if loan.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(loan.errors.count, "error") %> prohibited this loan from being saved:</h2>
+        <ul>
+          <% loan.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div>
+      <%= form.label :amount %>
+      <%= form.number_field :amount, step: 0.01 %>
+    </div>
+  
+    <div>
+      <%= form.label :installment_number %>
+      <%= form.number_field :installment_number %>
+    </div>
+  
+    <div>
+      <%= form.label :installment_amount %>
+      <%= form.number_field :installment_amount, step: 0.01 %>
+    </div>
+  
+    <div>
+      <%= form.label :grace_period_days %>
+      <%= form.number_field :grace_period_days %>
+    </div>
+  
+    <div>
+      <%= form.label :first_installment_date %>
+      <%= form.date_field :first_installment_date %>
+    </div>
+  
+    <div>
+      <%= form.label :last_installment_date %>
+      <%= form.date_field :last_installment_date %>
+    </div>
+  
+    <div>
+      <%= form.label :final_installment_date %>
+      <%= form.date_field :final_installment_date %>
+    </div>
+  
+    <div>
+      <%= form.label :lender %>
+      <%= form.text_field :lender %>
+    </div>
+  
+    <div>
+        <%= form.label :status %><br>
+        <%= form.select :status, options_for_select(
+            [['Pending', 'pending'], 
+            ['Active', 'active'], 
+            ['Completed', 'completed'], 
+            ['Defaulted', 'defaulted']], 
+            selected: form.object.status
+            ) %>
+    </div>
+  
+    <div>
+      <%= form.label :installment_type %>
+      <%= form.text_field :installment_type %>
+    </div>
+  
+    <div>
+      <%= form.label :security_type %>
+      <%= form.text_field :security_type %>
+    </div>
+  
+    <div>
+      <%= form.label :security_details %>
+      <%= form.text_area :security_details %>
+    </div>
+  
+    <div>
+      <%= form.label :guarantor %>
+      <%= form.text_field :guarantor %>
+    </div>
+  
+    <div>
+      <%= form.label :stamp_sl %>
+      <%= form.text_field :stamp_sl %>
+    </div>
+  
+    <div>
+      <%= form.submit %>
+    </div>
+<% end %>
+  

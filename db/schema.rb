@@ -10,9 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_085611) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_05_091143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "loans", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.decimal "amount"
+    t.integer "installment_number"
+    t.decimal "installment_amount"
+    t.integer "grace_period_days"
+    t.date "first_installment_date"
+    t.date "last_installment_date"
+    t.date "final_installment_date"
+    t.string "lender"
+    t.string "status"
+    t.string "security_type"
+    t.text "security_details"
+    t.string "guarantor"
+    t.string "stamp_sl"
+    t.string "installment_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_loans_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +48,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_085611) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "loans", "users"
 end

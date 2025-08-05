@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :loans, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
