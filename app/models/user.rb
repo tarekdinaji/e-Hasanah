@@ -1,7 +1,7 @@
 class User < ApplicationRecord
+  
   has_many :managed_borrowers, class_name: 'Borrower', foreign_key: 'manager_id'
   has_many :collected_installments, class_name: 'Installment', foreign_key: 'collected_by_id'
-  has_many :collected_installments, class_name: 'Installment', foreign_key: 'collected_by'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

@@ -3,7 +3,8 @@ class LoansController < ApplicationController
   before_action :set_loan, only: %i[show edit update destroy]
 
   def index
-    @loans = current_user.loans
+    @loans = Loan.all
+    #@loans = current_user.loans
   end
 
   def show
@@ -41,14 +42,15 @@ class LoansController < ApplicationController
   private
 
   def set_loan
-    @loan = current_user.loans.find(params[:id])
+    @loan = Loan.find(params[:id])
+    #@loan = current_user.loans.find(params[:id])
   end
 
   def loan_params
     params.require(:loan).permit(
       :amount, :installment_number, :installment_amount,
       :grace_period_days, :first_installment_date, :last_installment_date,
-      :final_installment_date, :lender, :status, :security_type,
+      :final_installment_date, :lender, :loan_status, :security_type,
       :security_details, :guarantor, :stamp_sl, :installment_type
     )
   end

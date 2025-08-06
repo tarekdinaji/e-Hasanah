@@ -1,6 +1,6 @@
 class Installment < ApplicationRecord
   belongs_to :loan
-  belongs_to :collected_by, class_name: 'User', foreign_key: 'collected_by_id'
+  belongs_to :collected_by, class_name: 'User', optional: true, foreign_key: 'collected_by_id'
 
   STATUSES = %w[unpaid paid]
 
