@@ -6,6 +6,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  ROLES = %w[admin manager agent].freeze
+
+  validates :role, presence: true, inclusion: { in: ROLES }       
+
   def admin?
     role == "admin"
   end
