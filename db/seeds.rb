@@ -9,64 +9,125 @@
 #   end
 # Clear existing data
 
+
 Installment.delete_all
 Loan.delete_all
 Guarantor.delete_all
 Borrower.delete_all
 User.delete_all
 
-# 1. Create a User (Manager)
+# === USERS ===
+admin = User.create!(
+  name: "Admin User",
+  email: "admin@example.com",
+  password: "password",
+  role: :admin
+)
+
 manager = User.create!(
-  email: "manager@example.com",
-  password: "123456",
   name: "Manager User",
-  role: "manager"
+  email: "manager@example.com",
+  password: "password",
+  role: :manager
 )
 
-# 2. Create a Borrower
-borrower = Borrower.create!(
-  name: "Rahim Uddin",
-  address: "123 Dhaka Road",
-  phone: "01712345678",
-  nid_number: "1990123456",
-  manager_id: manager.id
+agent = User.create!(
+  name: "Agent User",
+  email: "agent@example.com",
+  password: "password",
+  role: :agent
 )
 
-# 3. Create a Guarantor
-guarantor = Guarantor.create!(
-  name: "Karim Mia",
-  address: "456 Chittagong Road",
-  phone_number: "01812345678",
-  nid_number: "1987654321",
-  borrower_id: borrower.id
+# === BORROWERS ===
+borrower1 = Borrower.create!(
+  name: "John Doe",
+  address: "Village 1, District A",
+  phone: "01711111111",
+  nid_number: "19901123456",
+  manager: manager,
+  account_status: "active"
 )
 
-# 4. Create a Loan
-loan = Loan.create!(
-  amount: 50000,
-  installment_number: 10,
-  installment_amount: 5000,
-  grace_period_days: 5,
-  first_installment_date: Date.today + 7,
-  last_installment_date: Date.today + 70,
-  final_installment_date: Date.today + 77,
-  security_type: "Land Document",
-  security_details: "1 Katha land at Dhanmondi",
-  stamp_sl: "STMP1234",
+borrower2 = Borrower.create!(
+  name: "Jane Smith",
+  address: "Village 2, District B",
+  phone: "01822222222",
+  nid_number: "19902234567",
+  manager: manager,
+  account_status: "pending"
+)
+
+
+# === GUARANTORS ===
+guarantor1 = Guarantor.create!(
+  name: "Guarantor A",
+  address: "Town X",
+  phone_number: "01933333333",
+  nid_number: "19801234567",
+  borrower: borrower1
+)
+
+guarantor2 = Guarantor.create!(
+  name: "Guarantor B",
+  address: "Town Y",
+  phone_number: "01944444444",
+  nid_number: "19802345678",
+  borrower: borrower2
+)
+
+
+# === LOANS ===
+loan1 = Loan.create!(
+  borrower: borrower1,
+  guarantor: guarantor1,
+  amount: 10000,
+  installment_number: 5,
+  installment_amount: 2000,
+  grace_period_days: 7,
+  first_installment_date: Date.today + 7.days,
+  last_installment_date: Date.today + 35.days,
+  final_installment_date: Date.today + 42.days,
+  security_type: "Gold",
+  security_details: "Necklace 22k",
+  stamp_sl: "SL123",
   installment_type: "weekly",
-  loan_status: "approved",
-  borrower_id: borrower.id,
-  guarantor_id: guarantor.id
+  loan_status: "approved"
 )
 
-# 5. Create 10 Installments
-10.times do |i|
+loan2 = Loan.create!(
+  borrower: borrower2,
+  guarantor: guarantor2,
+  amount: 5000,
+  installment_number: 5,
+  installment_amount: 1000,
+  grace_period_days: 7,
+  first_installment_date: Date.today + 7.days,
+  last_installment_date: Date.today + 35.days,
+  final_installment_date: Date.today + 42.days,
+  security_type: "Land",
+  security_details: "2 decimal plot",
+  stamp_sl: "SL456",
+  installment_type: "weekly",
+  loan_status: "pending"
+)
+
+
+# === INSTALLMENTS ===
+loan1.installment_number.times do |i|
   Installment.create!(
-    loan_id: loan.id,
-    amount: 5000,
-    status: i < 5 ? "paid" : "unpaid", # first 5 paid, rest unpaid
-    collected_by_id: i < 5 ? manager.id : nil,
-    collected_at: i < 5 ? (Date.today + i * 7) : nil
+    loan: loan1,
+    amount: 2000,
+    collected_at: nil,
+    installment_status: "unpaid"
+  )
+end
+
+loan2.installment_number.times do |i|
+  Installment.create!(
+    loan: loan2,
+    amount: 1000,
+    collected_at: nil,
+    installment_status: "unpaid"
   )
 end
 

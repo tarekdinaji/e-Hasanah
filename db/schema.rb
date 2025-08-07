@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_07_143057) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_170920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -54,7 +54,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_143057) do
   create_table "installments", force: :cascade do |t|
     t.bigint "loan_id", null: false
     t.decimal "amount"
-    t.integer "collected_by_id"
     t.datetime "collected_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -77,8 +76,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_143057) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "loan_status"
-    t.bigint "borrower_id"
-    t.bigint "guarantor_id"
+    t.bigint "borrower_id", null: false
+    t.bigint "guarantor_id", null: false
     t.index ["borrower_id"], name: "index_loans_on_borrower_id"
     t.index ["guarantor_id"], name: "index_loans_on_guarantor_id"
   end
@@ -92,7 +91,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_143057) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.string "role"
+    t.integer "role", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

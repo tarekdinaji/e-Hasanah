@@ -3,7 +3,7 @@ class Loan < ApplicationRecord
   belongs_to :guarantor
   has_many :installments, dependent: :destroy
 
- 
+
   STATUSES = %w[active halt grace complete default].freeze
   INSTALLMENT_TYPES = %w[weekly monthly daily].freeze
 
@@ -14,6 +14,7 @@ class Loan < ApplicationRecord
   validates :loan_status, inclusion: { in: STATUSES }
   validates :installment_type, inclusion: { in: INSTALLMENT_TYPES }
 
+
   def active?
     loan_status == "active"
   end
@@ -21,5 +22,15 @@ class Loan < ApplicationRecord
   def complete?
     loan_status == "complete"
   end
-end
+  def halt?
+    loan_status == "halt"
+  end
+  def grace?
+    loan_status == "grace"
+  end
 
+  def default?
+    loan_status == "default"
+  end
+
+end

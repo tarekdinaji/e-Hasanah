@@ -1,24 +1,13 @@
 class User < ApplicationRecord
   
-  has_many :managed_borrowers, class_name: 'Borrower', foreign_key: 'manager_id'
-  has_many :collected_installments, class_name: 'Installment', foreign_key: 'collected_by_id'
+  has_many :managed_borrowers, class_name: 'Borrower', foreign_key: 'manager_id', dependent: :nullify
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  ROLES = %w[admin manager agent].freeze
+  enum :role, { admin: 0, manager: 1, agent: 2 }
 
-  validates :role, presence: true, inclusion: { in: ROLES }       
-
-  def admin?
-    role == "admin"
-  end
-
-  def manager?
-    role == "manager"
-  end
-
-  def agent?
-    role == "agent"
-  end
+         
+  validates :name, presence: true
+  
 end
