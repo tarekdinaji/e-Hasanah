@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_200305) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_142202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,11 +53,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_200305) do
   create_table "installments", force: :cascade do |t|
     t.bigint "loan_id", null: false
     t.decimal "amount"
-    t.string "status", default: "0"
     t.integer "collected_by_id"
     t.datetime "collected_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "installment_status", default: "unpaid"
     t.index ["loan_id"], name: "index_installments_on_loan_id"
   end
 
