@@ -24,7 +24,7 @@ class Borrower < ApplicationRecord
   end
 
 
-  validates :name, :address, :phone_number, presence: true
+  validates :name, :address, :phone, presence: true
 
   accepts_nested_attributes_for :guarantor, allow_destroy: true
 end
