@@ -1,93 +1,36 @@
-<%= form_with model: loan, local: true do |form| %>
-    <% if loan.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(loan.errors.count, "error") %> prohibited this loan from being saved:</h2>
-        <ul>
-          <% loan.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <div>
-      <%= form.label :amount %>
-      <%= form.number_field :amount, step: 0.01 %>
+<%= form_with model: @loan do |f| %>
+  <% if @loan.errors.any? %>
+    <div class="errors">
+      <ul><% @loan.errors.full_messages.each { |m| %><li><%= m %></li><% } %></ul>
     </div>
-  
-    <div>
-      <%= form.label :installment_number %>
-      <%= form.number_field :installment_number %>
-    </div>
-  
-    <div>
-      <%= form.label :installment_amount %>
-      <%= form.number_field :installment_amount, step: 0.01 %>
-    </div>
-  
-    <div>
-      <%= form.label :grace_period_days %>
-      <%= form.number_field :grace_period_days %>
-    </div>
-  
-    <div>
-      <%= form.label :first_installment_date %>
-      <%= form.date_field :first_installment_date %>
-    </div>
-  
-    <div>
-      <%= form.label :last_installment_date %>
-      <%= form.date_field :last_installment_date %>
-    </div>
-  
-    <div>
-      <%= form.label :final_installment_date %>
-      <%= form.date_field :final_installment_date %>
-    </div>
-  
-    <div>
-      <%= form.label :lender %>
-      <%= form.text_field :lender %>
-    </div>
-  
-    <div>
-        <%= form.label :status %><br>
-        <%= form.select :status, options_for_select(
-            [['Pending', 'pending'], 
-            ['Active', 'active'], 
-            ['Completed', 'completed'], 
-            ['Defaulted', 'defaulted']], 
-            selected: form.object.status
-            ) %>
-    </div>
-  
-    <div>
-      <%= form.label :installment_type %>
-      <%= form.text_field :installment_type %>
-    </div>
-  
-    <div>
-      <%= form.label :security_type %>
-      <%= form.text_field :security_type %>
-    </div>
-  
-    <div>
-      <%= form.label :security_details %>
-      <%= form.text_area :security_details %>
-    </div>
-  
-    <div>
-      <%= form.label :guarantor %>
-      <%= form.text_field :guarantor %>
-    </div>
-  
-    <div>
-      <%= form.label :stamp_sl %>
-      <%= form.text_field :stamp_sl %>
-    </div>
-  
-    <div>
-      <%= form.submit %>
-    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :borrower_id, "Borrower" %><br>
+    <%= f.collection_select :borrower_id, Borrower.all, :id, :name, include_blank: "Select Borrower" %>
+  </div>
+
+  <div>
+    <%= f.label :guarantor_id, "Guarantor" %><br>
+    <%= f.collection_select :guarantor_id, Guarantor.all, :id, :name, include_blank: "Select Guarantor" %>
+  </div>
+
+  <div><%= f.label :amount %><br><%= f.number_field :amount, step: :any %></div>
+  <div><%= f.label :installment_number %><br><%= f.number_field :installment_number %></div>
+  <div><%= f.label :installment_amount %><br><%= f.number_field :installment_amount, step: :any %></div>
+  <div><%= f.label :grace_period_days %><br><%= f.number_field :grace_period_days %></div>
+
+  <div><%= f.label :first_installment_date %><br><%= f.date_field :first_installment_date %></div>
+  <div><%= f.label :last_installment_date %><br><%= f.date_field :last_installment_date %></div>
+  <div><%= f.label :final_installment_date %><br><%= f.date_field :final_installment_date %></div>
+
+  <div><%= f.label :installment_type %><br><%= f.select :installment_type, options_for_select(%w[weekly monthly daily], @loan.installment_type) %></div>
+
+  <div><%= f.label :loan_status %><br><%= f.select :loan_status, options_for_select(%w[complete active halt grace default], @loan.loan_status) %></div>
+
+  <div><%= f.label :security_type %><br><%= f.text_field :security_type %></div>
+  <div><%= f.label :security_details %><br><%= f.text_area :security_details %></div>
+  <div><%= f.label :stamp_sl %><br><%= f.text_field :stamp_sl %></div>
+
+  <p><%= f.submit %></p>
 <% end %>
-  

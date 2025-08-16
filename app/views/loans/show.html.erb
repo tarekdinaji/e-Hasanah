@@ -1,16 +1,12 @@
-<h1>Loan Details</h1>
-
-<p><strong>Amount:</strong> <%= @loan.amount %></p>
-<p><strong>Installments:</strong> <%= @loan.installment_number %></p>
-<p><strong>Installment Amount:</strong> <%= @loan.installment_amount %></p>
-<p><strong>Grace Period:</strong> <%= @loan.grace_period_days %> days</p>
+<h1>Loan #<%= @loan.id %></h1>
+<p><strong>Borrower:</strong> <%= link_to @loan.borrower.name, @loan.borrower %></p>
+<p><strong>Guarantor:</strong> <%= @loan.guarantor.name %></p>
+<p><strong>Amount:</strong> <%= number_to_currency(@loan.amount) %></p>
 <p><strong>Status:</strong> <%= @loan.loan_status %></p>
-<p><strong>First Installment:</strong> <%= @loan.first_installment_date %></p>
-<p><strong>Last Installment:</strong> <%= @loan.last_installment_date %></p>
-<p><strong>Final Installment:</strong> <%= @loan.final_installment_date %></p>
-<p><strong>Guarantor:</strong> <%= @loan.guarantor %></p>
-<p><strong>Security Type:</strong> <%= @loan.security_type %></p>
-<p><strong>Security Details:</strong> <%= @loan.security_details %></p>
+<p><strong>Installment Type:</strong> <%= @loan.installment_type %></p>
 
-<%= link_to 'Edit', edit_loan_path(@loan) %> |
-<%= link_to 'Back', loans_path %>
+<p>
+  <%= link_to "Installments", loan_installments_path(@loan) %> |
+  <%= link_to "Edit", edit_loan_path(@loan) %> |
+  <%= link_to "Back", loans_path %>
+</p>

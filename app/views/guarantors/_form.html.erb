@@ -1,0 +1,15 @@
+<%= form_with model: [@borrower, @guarantor] do |f| %>
+    <% if @guarantor.errors.any? %>
+      <div class="errors">
+        <ul><% @guarantor.errors.full_messages.each { |m| %><li><%= m %></li><% } %></ul>
+      </div>
+    <% end %>
+  
+    <div><%= f.label :name %><br><%= f.text_field :name %></div>
+    <div><%= f.label :phone %><br><%= f.text_field :phone %></div>
+    <div><%= f.label :address %><br><%= f.text_field :address %></div>
+    <div><%= f.label :nid_number %><br><%= f.text_field :nid_number %></div>
+  
+    <p><%= f.submit %></p>
+<% end %>
+  

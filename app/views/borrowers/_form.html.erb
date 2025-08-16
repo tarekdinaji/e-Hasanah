@@ -14,7 +14,7 @@
       <%= f.select :account_status, options_for_select(%w[active pending closed], @borrower.account_status) %>
     </div>
   
-    <h3>Guarantor (optional)</h3>
+    <h3>Guarantor</h3>
     <%= f.fields_for :guarantor do |g| %>
       <div><%= g.label :name %><br><%= g.text_field :name %></div>
       <div><%= g.label :phone %><br><%= g.text_field :phone %></div>
