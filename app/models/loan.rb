@@ -1,7 +1,7 @@
 class Loan < ApplicationRecord
   belongs_to :borrower
   belongs_to :guarantor
-  has_many :installments, dependent: :destroy
+  has_many :installments
 
 
   STATUSES = %w[active halt grace complete default].freeze

@@ -1,7 +1,7 @@
 class Borrower < ApplicationRecord
   belongs_to :manager, class_name: 'User'
-  has_many :loans, dependent: :destroy
-  has_one :guarantor, dependent: :destroy
+  has_many :loans
+  has_one :guarantor
   
   ACCOUNT_STATUSES = %w[active pending closed].freeze
 
@@ -26,6 +26,6 @@ class Borrower < ApplicationRecord
 
   validates :name, :address, :phone, presence: true
 
-  accepts_nested_attributes_for :guarantor, allow_destroy: true
+  accepts_nested_attributes_for :guarantor
 end
 
