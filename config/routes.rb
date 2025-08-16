@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  
  
   devise_for :users
   resources :loans
-  root "loans#index"
+  root "borrowers#index"
+  resources :borrowers 
 end

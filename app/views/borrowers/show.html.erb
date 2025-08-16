@@ -1,0 +1,11 @@
+<h1><%= @borrower.name %></h1>
+<p><strong>Phone:</strong> <%= @borrower.phone %></p>
+<p><strong>Address:</strong> <%= @borrower.address %></p>
+<p><strong>Status:</strong> <%= @borrower.account_status %></p>
+
+
+
+<p>
+  <%= link_to "Edit", edit_borrower_path(@borrower) %> |
+  <%= link_to "Back", borrowers_path %>
+</p>

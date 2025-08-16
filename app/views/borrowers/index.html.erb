@@ -1,0 +1,28 @@
+<h1>Borrowers</h1>
+
+<p><%= link_to "New Borrower", new_borrower_path, class: "button" %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Status</th>
+      <th>Manager</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @borrowers.each do |b| %>
+      <tr>
+        <td><%= link_to b.name, b %></td>
+        <td><%= b.phone %></td>
+        <td><%= b.account_status %></td>
+        <td><%= b.manager&.name %></td>
+        <td>
+          <%= link_to "Edit", edit_borrower_path(b) %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
