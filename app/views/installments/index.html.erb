@@ -1,0 +1,31 @@
+<h1>Installments for Loan <%= @loan.id %></h1>
+
+<p><%= link_to "Add Installment", new_loan_installment_path(@loan), class: "button" %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Collected At</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @installments.each do |ins| %>
+      <tr>
+        <td><%= ins.id %></td>
+        <td><%= number_to_currency(ins.amount) %></td>
+        <td><%= ins.installment_status %></td>
+        <td><%= ins.collected_at&.strftime("%Y-%m-%d %H:%M") %></td>
+        <td>
+          <%= link_to "Show", ins %> |
+          <%= link_to "Edit", edit_installment_path(ins) %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "Back to Loan", @loan %></p>

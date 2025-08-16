@@ -1,0 +1,17 @@
+<%= form_with model: @installment do |f| %>
+    <% if @installment.errors.any? %>
+      <div class="errors">
+        <ul><% @installment.errors.full_messages.each { |m| %><li><%= m %></li><% } %></ul>
+      </div>
+    <% end %>
+  
+    <div><%= f.label :amount %><br><%= f.number_field :amount, step: :any %></div>
+    <div>
+      <%= f.label :installment_status, "Status" %><br>
+      <%= f.select :installment_status, options_for_select(%w[unpaid paid deferred defaulted], @installment.installment_status) %>
+    </div>
+    <div><%= f.label :collected_at %><br><%= f.datetime_field :collected_at %></div>
+  
+    <p><%= f.submit %></p>
+<% end %>
+  

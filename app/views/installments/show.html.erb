@@ -1,0 +1,10 @@
+<h1>Installment #<%= @installment.id %></h1>
+<p><strong>Loan:</strong> <%= link_to @installment.loan_id, @installment.loan %></p>
+<p><strong>Amount:</strong> <%= number_to_currency(@installment.amount) %></p>
+<p><strong>Status:</strong> <%= @installment.installment_status %></p>
+<p><strong>Collected At:</strong> <%= @installment.collected_at %></p>
+
+<p>
+  <%= link_to "Edit", edit_installment_path(@installment) %> |
+  <%= link_to "Back", loan_installments_path(@installment.loan) %>
+</p>
